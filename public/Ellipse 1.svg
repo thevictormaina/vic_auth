@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" fill="blue" viewBox="0 0 100 100">
+  <circle r="25" cx="50" cy="50" stroke="blue" stroke stroke-width="50" fill="red" stroke-dasharray="70.65 282.6"
+    style="transform: rotate(-90deg); transform-origin: center;">
+    <animate  />
+  </circle>
+</svg>
