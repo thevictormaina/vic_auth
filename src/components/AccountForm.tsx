@@ -101,14 +101,16 @@ BaseAccountFormProps) {
         </button>
       </div>
 
-      <div className="flex flex-col gap-4">
-        <Input
-          inputLabel="Account label"
-          id="label"
-          value={accountProperties.label}
-          onChange={(e) => handleInputChange(e, "label")}
-          required
-        />
+      <div className="w-full grid grid-cols-[repeat(auto-fill,_minmax(10rem,_1fr))] gap-4">
+        <div className="col-span-full">
+          <Input
+            inputLabel="Account label"
+            id="label"
+            value={accountProperties.label}
+            onChange={(e) => handleInputChange(e, "label")}
+            required
+          />
+        </div>
 
         <Input
           inputLabel="Secret"
@@ -139,15 +141,14 @@ BaseAccountFormProps) {
           id="label"
           value={accountProperties.issuerUrl}
           onChange={(e) => handleInputChange(e, "issuerUrl")}
-          required
         />
       </div>
 
       <hr className="border-slate-200 border my-4" />
 
-      <div className="flex gap-4 md:gap-8 items-center">
+      <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-4 md:gap-8 items-center">
         <button
-          className="p-4 font-medium text-red-700 hover:text-red-800 flex items-center gap-1"
+          className="p-4 font-medium text-red-700 hover:text-red-800 flex items-center gap-1 order-2"
           type="button"
           onClick={() => clearAccountProperties()}
           autoFocus
@@ -156,7 +157,7 @@ BaseAccountFormProps) {
           <Icon icon="material-symbols:close-rounded" />
         </button>
 
-        <Button type="submit" className="hidden sm:flex flex-1 justify-center">
+        <Button type="submit" className="w-full order-1 sm:order-2 flex flex-1 justify-center">
           <span>Add new account</span>
           <Icon icon="material-symbols:add-rounded" />
         </Button>

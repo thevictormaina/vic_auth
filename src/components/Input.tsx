@@ -28,10 +28,11 @@ export function Input(props: InputProps) {
           placeholder=""
         />
         <label
-          className="order-1 peer-placeholder-shown:absolute peer-placeholder-shown:font-medium peer-placeholder-shown:text-base text-sm font-bold text-slate-400 peer-focus:text-slate-600 w-fit pointer-events-none"
+          className="order-1 peer-placeholder-shown:absolute peer-placeholder-shown:font-medium peer-placeholder-shown:text-base text-sm font-bold text-slate-400 peer-focus:text-slate-600 w-fit pointer-events-none flex items-start gap-[.125rem]"
           htmlFor={props.id}
         >
           {inputLabel}
+          {props.required && <span className="text-xs">*</span>}
         </label>
       </div>
       {error && (

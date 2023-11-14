@@ -26,7 +26,7 @@ export function Dialog({ children /* title */ }: DialogProps) {
   return (
     <dialog
       ref={dialogRef}
-      className="p-4 md:p-8 backdrop:bg-slate-200/90 rounded-2xl bg-slate-100 drop-shadow-sm border border-slate-200/60 sm:min-w-[30rem] max-w-full max-h-full overflow-hidden"
+      className="p-4 sm:p-8 backdrop:bg-slate-200/90 rounded-2xl bg-slate-100 drop-shadow-sm border border-slate-200/60 sm:min-w-[30rem] max-w-full max-h-full overflow-hidden"
     >
       {children}
     </dialog>

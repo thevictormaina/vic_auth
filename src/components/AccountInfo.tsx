@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AccountPropertiesType } from "../types/accounts";
 import useCounter from "../hooks/useCounter";
 import { TOTP } from "otpauth";
@@ -10,11 +10,6 @@ export default function AccountInfo(props: AccountInfoProps) {
   const { label, secret, issuerName, issuerUrl, username } = props;
 
   const { counter, intervalAmount, updateCounter } = useCounter(30 * 1000);
-
-  // const otp = useMemo(() => {
-  //   const totp = new TOTP({ secret });
-  //   return totp.generate();
-  // }, [secret, currentInterval, counter]);
 
   const auth = new TOTP({ secret, label, issuer: issuerName });
   const otp = auth.generate();
@@ -37,10 +32,13 @@ export default function AccountInfo(props: AccountInfoProps) {
         <p className="text-slate-900 text-3xl font-bold tracking-widest">
           {otp}
         </p>
-        <Icon
+
+        <Copy otp={otp} />
+
+        {/* <Icon
           icon="material-symbols:content-copy-rounded"
           className="text-xl text-blue-700"
-        />
+        /> */}
       </div>
 
       <footer className="flex items-center justify-between">
@@ -92,6 +90,46 @@ function Header({ label, issuerName, issuerUrl }: AccountInfoHeaderType) {
         className="text-blue-700 text-xl"
       />
     </header>
+  );
+}
+
+type CopyProps = { otp: string };
+function Copy({ otp }: CopyProps) {
+  const [otpCopied, setOtpCopied] = useState(true);
+
+  function handleClick() {
+    navigator.clipboard.writeText(otp).then(
+      () => setOtpCopied(true),
+      (reason) => console.error(reason)
+    );
+  }
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setOtpCopied(false);
+    }, 2000);
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [otpCopied]);
+
+  return (
+    <div className="flex items-center gap-2">
+      {otpCopied ? (
+        <p className="text-sm text-green-600 font-medium flex items-center gap-1 transition-all">
+          <Icon icon="material-symbols:check-circle-rounded" />
+          Copied
+        </p>
+      ) : (
+        <button
+          title="Copy OTP"
+          className="text-xl text-blue-700 hover:text-blue-800"
+          onClick={handleClick}
+        >
+          <Icon icon="material-symbols:content-copy-rounded" />
+        </button>
+      )}
+    </div>
   );
 }
 

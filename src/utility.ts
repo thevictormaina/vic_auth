@@ -24,3 +24,11 @@ export function generateMapID(map: Map<string, object>, length = 10) {
 
   return id;
 }
+
+export async function copyToClipboard(text: string) {
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch (error) {
+    console.error(error);
+  }
+}
