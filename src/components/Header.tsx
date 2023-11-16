@@ -66,6 +66,7 @@ function NewAccountForm() {
 
   function handleSubmit() {
     createAccount(newAccount);
+    clearAccountProperties();
   }
 
   return (
