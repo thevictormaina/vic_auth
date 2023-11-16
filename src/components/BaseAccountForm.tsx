@@ -1,49 +1,12 @@
 // import useAccountsMapContext from "../contexts/accountsMapContext";
-import { useState } from "react";
+// import { useState } from "react";
 import { EditableAccountPropertiesType } from "../types/accounts";
-import { Dialog } from "./Dialog";
+// import { Dialog } from "./Dialog";
 import { useDialogContext } from "../contexts/dialogContext";
 import { Icon } from "@iconify/react";
 import { Input } from "./Input";
 import Button from "./Button";
-import useAccountsMapContext from "../contexts/accountsMapContext";
-
-export function NewAccountForm() {
-  const { createAccount } = useAccountsMapContext();
-  const [newAccount, setNewAccount] = useState<EditableAccountPropertiesType>({
-    label: "",
-    secret: "",
-    username: "",
-    issuerName: "",
-    issuerUrl: "",
-  });
-
-  function clearAccountProperties() {
-    setNewAccount({
-      label: "",
-      secret: "",
-      username: "",
-      issuerName: "",
-      issuerUrl: "",
-    });
-  }
-
-  function handleSubmit() {
-    createAccount(newAccount);
-  }
-
-  return (
-    <Dialog>
-      <BaseAccountForm
-        title="New account"
-        accountProperties={newAccount}
-        setAccountProperties={setNewAccount}
-        clearAccountProperties={clearAccountProperties}
-        onSubmit={handleSubmit}
-      />
-    </Dialog>
-  );
-}
+// import useAccountsMapContext from "../contexts/accountsMapContext";
 
 type BaseAccountFormProps = {
   title: string;

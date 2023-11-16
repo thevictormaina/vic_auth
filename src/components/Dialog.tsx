@@ -3,6 +3,7 @@ import {
   useDialogContext,
   DialogContextProvider,
 } from "../contexts/dialogContext";
+import useEventListener from "../hooks/useEventListener";
 
 export function DialogWithProvider({ children }: React.PropsWithChildren) {
   return (
@@ -14,8 +15,23 @@ export function DialogWithProvider({ children }: React.PropsWithChildren) {
 
 type DialogProps = React.PropsWithChildren; // & { title?: string };
 export function Dialog({ children /* title */ }: DialogProps) {
-  const { dialogOpen } = useDialogContext();
+  const { dialogOpen, closeDialog } = useDialogContext();
   const dialogRef = useRef<HTMLDialogElement>(null);
+
+  useEventListener(
+    "click",
+    (e) => {
+      const rect = dialogRef.current!.getBoundingClientRect();
+      const isInDialog =
+        rect.top <= e.clientY &&
+        e.clientY <= rect.top + rect.height &&
+        rect.left <= e.clientX &&
+        e.clientX <= rect.left + rect.width;
+
+      if (!isInDialog) closeDialog();
+    },
+    dialogRef.current!
+  );
 
   // Toggle modal based on context state
   useEffect(() => {

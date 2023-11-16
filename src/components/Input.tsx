@@ -6,8 +6,7 @@ type InputProps = {
   error?: string;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
-export function Input(props: InputProps) {
-  const { inputLabel, error } = props;
+export function Input({ inputLabel, error, ...props }: InputProps) {
   const inputRef = useRef<HTMLInputElement>(null);
 
   function focusInput() {

@@ -9,7 +9,7 @@ type DialogContextType = {
 export const DialogContext = createContext<DialogContextType | null>(null);
 
 export function DialogContextProvider({ children }: React.PropsWithChildren) {
-  const [dialogOpen, setDialogOpen] = useState(true);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const ctx: DialogContextType = {
     dialogOpen,
     toggleDialog: () => setDialogOpen((prev) => !prev),
