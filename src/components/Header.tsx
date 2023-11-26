@@ -38,6 +38,7 @@ function AddNewAccount() {
   ) {
     const account = createAccount(updatedAccountProperties);
     setNewAccount(account);
+    handleFormToggle(false)
   }
 
   return (
@@ -101,7 +102,10 @@ function AccountFormFooter() {
       <Button
         type="submit"
         className="w-full order-1 sm:order-2 flex flex-1 justify-center items-center"
-      ></Button>
+      >
+        <Icon icon="material-symbols:add-circle-rounded" />
+        Add account
+      </Button>
     </footer>
   );
 }

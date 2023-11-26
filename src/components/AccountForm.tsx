@@ -59,7 +59,7 @@ export function AccountForm({
       {/* Header should contain form title and a close button if form is in modal/dialog. */}
       {header}
 
-      <div className="w-full grid grid-cols-[repeat(auto-fill,_minmax(10rem,_1fr))] gap-4">
+      <div className="w-full grid grid-cols-[repeat(auto-fill,_minmax(10rem,_1fr))]  gap-4">
         <div className="col-span-full">
           <Input
             type="text"
