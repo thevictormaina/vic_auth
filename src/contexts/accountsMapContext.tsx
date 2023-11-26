@@ -45,7 +45,11 @@ export function AccountsMapTypeProvider({ children }: React.PropsWithChildren) {
 
     if (account !== undefined) {
       setAccountsMap((prevMap) => {
-        prevMap.delete(id);
+        const deleted = prevMap.delete(id);
+        if(deleted){
+          const newMapArr = [...prevMap]
+          return new Map(newMapArr)
+        }
         return prevMap;
       });
     }
@@ -81,7 +85,11 @@ export function AccountsMapTypeProvider({ children }: React.PropsWithChildren) {
         ...account,
         ...updatedProperties,
       };
-      setAccountsMap((prevMap) => prevMap.set(id, updatedAccount));
+      // setAccountsMap((prevMap) => prevMap.set(id, updatedAccount));
+      setAccountsMap((prevMap) => {
+        const newMapArr = [...prevMap.set(id, updatedAccount)];
+        return new Map(newMapArr);
+      });
 
       return updatedAccount;
     }

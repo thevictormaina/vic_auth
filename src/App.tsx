@@ -1,8 +1,6 @@
 import AccountInfo from "./components/AccountInfo";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-// import { NewAccountForm } from "./components/BaseAccountForm";
-import { DialogContextProvider } from "./contexts/dialogContext";
 import useAccountsMapContext from "./contexts/accountsMapContext";
 import { useMemo } from "react";
 
@@ -16,13 +14,7 @@ export default function App() {
 
   return (
     <div className="flex flex-col h-full min-h-[100vh]">
-      <DialogContextProvider>
-        <Header></Header>
-        {/* <NewAccountForm /> */}
-      </DialogContextProvider>
-
-      {/* <Dialog> */}
-      {/* </Dialog> */}
+      <Header></Header>
 
       <section className="container mx-auto p-4 flex-1">
         <h1 className="text-slate-600 font-bold mb-8">

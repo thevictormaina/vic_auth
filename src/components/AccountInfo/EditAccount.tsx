@@ -1,53 +1,46 @@
+import { Icon } from "@iconify/react/dist/iconify.js";
 import { useState } from "react";
-import logo from "../assets/logo.svg";
-import useAccountsMapContext from "../contexts/accountsMapContext";
-import { EditableAccountPropertiesType } from "../types/accounts";
-import { AccountForm } from "./AccountForm";
-import Button from "./Button";
-import { Icon } from "@iconify/react";
-import { DialogModal } from "./Dialog";
+import useAccountsMapContext from "../../contexts/accountsMapContext";
+import {
+  AccountPropertiesType,
+  EditableAccountPropertiesType,
+} from "../../types/accounts";
+import { AccountForm } from "../AccountForm";
+import Button from "../Button";
+import { DialogModal } from "../Dialog";
 
-export default function Header() {
-  return (
-    <header className="container mx-auto p-4 flex justify-between items-center">
-      <img src={logo} alt="VM Auth Logo" />
+type EditAccountProps = {
+  accountProperties: AccountPropertiesType;
+};
 
-      <div className="flex items-center gap-8">
-        <AddNewAccount />
-
-        {/* <Icon
-          icon="material-symbols:menu-rounded"
-          className="text-xl text-blue-700"
-        /> */}
-      </div>
-    </header>
-  );
-}
-
-function AddNewAccount() {
+export default function EditAccount({ accountProperties }: EditAccountProps) {
   const [isFormOpen, setFormOpen] = useState(false);
-  const { createAccount } = useAccountsMapContext();
-  const [newAccount, setNewAccount] = useState<EditableAccountPropertiesType>();
+  const { updateAccount } = useAccountsMapContext();
 
   function handleFormToggle(value?: boolean) {
-    setFormOpen((prev) => (value !== undefined ? value : !prev));
+    // if (value) setFormOpen(value);
+    // else setFormOpen((prev) => !prev);
+    setFormOpen((prev) => (value !== undefined ? value : !prev  ));
   }
 
   function handleSubmit(
     updatedAccountProperties: EditableAccountPropertiesType
   ) {
-    const account = createAccount(updatedAccountProperties);
-    setNewAccount(account);
+    updateAccount(accountProperties.id, updatedAccountProperties);
+    console.log("submitted");
+    // handleFormToggle(false);
   }
 
   return (
     <>
-      <Button type="button" onClick={() => setFormOpen(true)}>
-        <span>Add new account</span>
-        <Icon icon="material-symbols:add-rounded" />
-      </Button>
+      <button
+        className="transition-colors hover:bg-blue-800 w-full text-white text-sm font-medium flex items-center gap-2 py-3 px-4"
+        onClick={() => handleFormToggle(true)}
+        type="button"
+      >
+        <Icon icon="material-symbols:edit-rounded" /> Edit
+      </button>
 
-      {/* <NewAccountForm /> */}
       <DialogModal isOpen={isFormOpen} onModalToggle={handleFormToggle}>
         {isFormOpen && (
           <AccountForm
@@ -55,7 +48,7 @@ function AddNewAccount() {
               <AccountFormHeader onFormClose={() => setFormOpen(false)} />
             }
             footer={<AccountFormFooter />}
-            accountProperties={newAccount}
+            accountProperties={accountProperties}
             onAccountSubmit={handleSubmit}
           />
         )}
@@ -63,17 +56,16 @@ function AddNewAccount() {
     </>
   );
 }
-
 type AccountHeaderProps = { onFormClose: () => void };
 function AccountFormHeader({ onFormClose }: AccountHeaderProps) {
   return (
     <header className="flex items-center justify-between gap-4 mb-4">
-      <h1 className="font-bold  text-slate-900">Add new account</h1>
+      <h1 className="font-bold  text-slate-900">Edit account</h1>
       <button
         className="text-sm font-bold text-blue-700 hover:text-blue-800 flex items-center gap-1"
         type="button"
         onClick={onFormClose}
-        autoFocus
+        // autoFocus
       >
         Close
         <Icon
@@ -92,7 +84,6 @@ function AccountFormFooter() {
       <button
         className="p-4 font-medium text-red-700 hover:text-red-800 flex items-center gap-1 order-2"
         type="reset"
-        autoFocus
       >
         Clear
         <Icon icon="material-symbols:x-rounded" />
@@ -101,7 +92,10 @@ function AccountFormFooter() {
       <Button
         type="submit"
         className="w-full order-1 sm:order-2 flex flex-1 justify-center items-center"
-      ></Button>
+        autoFocus
+      >
+        Save account <Icon icon="material-symbols:check-small-rounded" />
+      </Button>
     </footer>
   );
 }
